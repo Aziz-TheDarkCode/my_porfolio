@@ -1,0 +1,50 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+<meta name="author" content="{{ site.Params.name }}">
+<meta name="robots" content="index, follow">
+
+{{/* Open Graph */}}
+<meta property="og:title"       content="{{ .Title }}">
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+<meta property="og:image"       content="{{ site.Params.og_image | absURL }}">
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="{{ .Permalink }}">
+
+{{/* Twitter Card */}}
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="{{ .Title }}">
+<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+<meta name="twitter:image"       content="{{ site.Params.og_image | absURL }}">
+
+{{/* Canonical */}}
+<link rel="canonical" href="{{ .Permalink }}">
+
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+
+{{- $css := resources.Get "css/main.css" | css.TailwindCSS | fingerprint -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://code.iconify.design">
+
+<script src="{{ site.Params.iconify_cdn }}" defer></script>
+
+{{/* JSON-LD structured data */}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ site.Params.name }}",
+  "url": "{{ site.BaseURL }}",
+  "email": "{{ site.Params.email }}",
+  "jobTitle": "{{ site.Params.role }}",
+  "description": "{{ site.Params.bio }}",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Dakar",
+    "addressCountry": "SN"
+  },
+  "sameAs": []
+}
+</script>

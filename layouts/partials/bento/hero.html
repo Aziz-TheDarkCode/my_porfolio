@@ -1,0 +1,26 @@
+{{/* ── Hero card — yellow background ── */}}
+<div class="hero">
+
+  {{/* Available badge */}}
+  <!-- {{ if site.Params.available }}
+  <div class="bn-hero-badge" role="status">
+    <span class="bn-hero-badge__dot" aria-hidden="true"></span>
+    Available for work
+  </div>
+  {{ end }} -->
+
+  <div>
+    <h1 class="hero__name">
+      {{ range (split site.Params.name " ") }}{{ . }} {{ end -}}
+    </h1>
+
+    <p class="hero__bio">
+      {{ site.Params.bio }}
+    </p>
+
+    <p class="hero__location">
+      {{ site.Params.location_flag }} {{ site.Params.location }} — {{ site.Params.open_to }}
+    </p>
+  </div>
+
+</div>

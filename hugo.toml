@@ -1,0 +1,33 @@
+baseURL = "https://abdouaziz.dev/"
+languageCode = "en-us"
+title = "Abdou Aziz Ndiaye — Product Designer & Front-End Engineer"
+enableRobotsTXT = true
+
+[build]
+  writeStats = true
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
+
+[params]
+  name        = "Abdou Aziz Ndiaye"
+  email       = "workwith@abdouaziz.dev"
+  phone       = "+221 78 630 06 14"
+  role        = "Product Designer & Front-End Engineer"
+  bio         = "Crafting sharp, purposeful digital experiences. I bridge design thinking with production code to ship things people actually enjoy using."
+  available   = true
+  location    = "Dakar, Senegal"
+  location_flag = "🇸🇳"
+  open_to     = "Open to remote"
+  description = "Portfolio of Abdou Aziz Ndiaye — Product designer & front-end engineer based in Dakar."
+  og_image    = "/images/og.png"
+  iconify_cdn = "https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"
+
+[params.hero]
+  greeting  = "Hey, I'm"
+  cta_label = "See my work"
+  cta_href  = "#featured"
+
+[params.socials_label]
+  value = "Find me on"

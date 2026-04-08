@@ -1,0 +1,15 @@
+{
+  "name": "portfolio-v2",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "hugo server --disableFastRender",
+    "build": "hugo --minify",
+    "clean": "rm -rf public resources/_gen hugo_stats.json"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.2",
+    "daisyui": "^5.0.9",
+    "tailwindcss": "^4.1.3"
+  }
+}

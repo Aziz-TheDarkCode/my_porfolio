@@ -1,0 +1,77 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Skills — grouped for the tech stack card
+# categories: ordered list of skill groups (shown as label + chips)
+# soft_skills: shown at the bottom with accent chips
+# spoken_languages: shown at the bottom with level badge
+# ─────────────────────────────────────────────────────────────────────────────
+
+categories:
+  - name: "Languages"
+    items:
+      - "JavaScript"
+      - "TypeScript"
+      - "Golang"
+      - "PHP"
+      - "Dart"
+      - "Java"
+      - "Rust"
+
+  - name: "Frontend"
+    items:
+      - "React.js"
+      - "Next.js"
+      - "Angular"
+      - "Preact"
+      - "Gatsby.js"
+      - "Tailwind CSS"
+      - "HTML & CSS"
+
+  - name: "Backend"
+    items:
+      - "Node.js"
+      - "Fastify"
+      - "Deno"
+      - "REST API"
+      - "GraphQL"
+
+  - name: "Databases"
+    items:
+      - "MySQL"
+      - "MongoDB"
+      - "Redis"
+
+  - name: "Tools & DevOps"
+    items:
+      - "Docker"
+      - "GitHub Actions"
+      - "Git"
+      - "Webpack"
+      - "Jest"
+
+  - name: "CMS & Platforms"
+    items:
+      - "Drupal"
+      - "Appwrite"
+      - "Shopify API"
+
+  - name: "Other"
+    items:
+      - "UI Design"
+      - "Web Performance Optimization"
+      - "SEO"
+
+soft_skills:
+  - "Creativity"
+  - "SCRUM & Agile"
+  - "Team Collaboration"
+  - "Communication"
+  - "Versatility"
+  - "Autonomy"
+
+spoken_languages:
+  - language: "French"
+    level:    "Fluent"
+  - language: "English"
+    level:    "Professional"
+  - language: "Wolof"
+    level:    "Native"

@@ -1,0 +1,121 @@
+{{/* ── Freelance Clients carousel card ── */}}
+<div style="padding:1.625rem; overflow:hidden;">
+
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem;">
+    <span class="bn-label" style="margin-bottom:0;">Past Clients</span>
+    <div style="display:flex; gap:6px; align-items:center;">
+      <button
+        class="bn-scroll-btn"
+        onclick="this.closest('.bn-card').querySelector('.bn-clients-track').scrollBy({left:-185,behavior:'smooth'})"
+        aria-label="Scroll left"
+      >←</button>
+      <button
+        class="bn-scroll-btn"
+        onclick="this.closest('.bn-card').querySelector('.bn-clients-track').scrollBy({left:185,behavior:'smooth'})"
+        aria-label="Scroll right"
+      >→</button>
+    </div>
+  </div>
+
+  <div
+    class="bn-clients-track"
+    style="
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      scroll-behavior:smooth;
+      scrollbar-width:none;
+      -ms-overflow-style:none;
+      cursor:grab;
+      padding-bottom:4px;
+    "
+    role="list"
+    aria-label="Past clients"
+    onmousedown="(function(el,e){el._drag={active:true,startX:e.pageX,sl:el.scrollLeft}})(this,event)"
+    onmousemove="(function(el,e){if(!el._drag?.active)return;el.scrollLeft=el._drag.sl-(e.pageX-el._drag.startX)})(this,event)"
+    onmouseup="this._drag&&(this._drag.active=false)"
+    onmouseleave="this._drag&&(this._drag.active=false)"
+  >
+    {{ range hugo.Data.clients }}
+    <div
+      class="bn-client-item"
+      role="button"
+      tabindex="0"
+      aria-label="View {{ .name }} case study"
+      data-name="{{ .name }}"
+      data-sector="{{ .sector }}"
+      data-desc="{{ .desc }}"
+      data-tags="{{ .tags | jsonify }}"
+      data-result="{{ .result }}"
+      data-color="{{ .color }}"
+      data-type="{{ .type }}"
+      data-start-date="{{ .start_date }}"
+      data-end-date="{{ .end_date }}"
+      data-logo="{{ .logo }}"
+      data-responsibilities="{{ .responsibilities | jsonify }}"
+      onclick="bnShowClient(this)"
+      onkeydown="if(event.key==='Enter'||event.key===' ')bnShowClient(this)"
+      style="cursor:pointer; position:relative; overflow:hidden;"
+    >
+      {{ with .logo }}
+      <img
+        src="{{ . }}"
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+        style="
+          position:absolute;
+          top:-10%;
+          right:-10%;
+          width:70%;
+          height:auto;
+          object-fit:contain;
+          opacity:0.2;
+          mix-blend-mode:multiply;
+          pointer-events:none;
+          user-select:none;
+        "
+      />
+      {{ end }}
+      <p style="font-family:'Alan Sans',sans-serif; font-size:1.5rem; font-weight:800; letter-spacing:0.04em; position:relative;">
+        {{ .name }}
+      </p>
+      <p style="font-size:0.52rem; letter-spacing:0.12em; text-transform:uppercase; opacity:0.42; position:relative;">
+        {{ .sector }}
+      </p>
+    </div>
+    {{ end }}
+    <a
+      href="mailto:workwith@abdouaziz.dev"
+      class="bn-client-item bn-client-item--cta"
+      role="button"
+      aria-label="Be my next client"
+      style="cursor:pointer; text-decoration:none; background:var(--color-nb-black); color:var(--color-nb-yellow); box-shadow:4px 4px 0 var(--color-nb-yellow); border-color:var(--color-nb-black);"
+    >
+      <p style="font-family:'Alan Sans',sans-serif; font-size:0.95rem; font-weight:800; letter-spacing:0.04em; line-height:1.2;">
+        Be next on the list
+      </p>
+      <p style="font-size:0.52rem; letter-spacing:0.12em; text-transform:uppercase; opacity:0.62; color:var(--color-nb-yellow);">
+        Let's work together
+      </p>
+    </a>
+  </div>
+
+  <p style="font-size:0.52rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.38; margin-top:0.625rem;">
+    Click a client to view the case study ↑
+  </p>
+
+</div>
+
+<style>
+  .bn-clients-track::-webkit-scrollbar { display: none; }
+  .bn-clients-track:active { cursor: grabbing; }
+
+  /* Active (selected) client chip */
+  .bn-client-item--active {
+    background:var(--color-nb-yellow) !important;
+    transform: translate(-1px, -1px) scale(1.06) !important;
+    box-shadow: 4px 4px 0 #000 !important;
+  }
+</style>

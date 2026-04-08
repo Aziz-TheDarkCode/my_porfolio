@@ -1,0 +1,165 @@
+{{/* ── Client Case Study card (permanent default) ── */}}
+{{ $first := index hugo.Data.clients 0 }}
+
+<div id="bn-client-view" class="bn-view bn-card-body">
+
+  <div class="bn-featured-inner bn-featured-inner--full">
+
+    {{/* Left: dynamic client info */}}
+    <div class="cv-left">
+
+      <div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem;">
+          <span class="bn-label" style="margin-bottom:0;">Client Case Study</span>
+          {{ with $first.logo }}
+          <img
+            id="bn-cv-logo"
+            src="{{ . }}"
+            alt="{{ $first.name }} logo"
+            style="height:3.5rem; width:auto; max-width:140px; object-fit:contain; opacity:0.75;"
+          />
+          {{ else }}
+          <img id="bn-cv-logo" src="" alt="" style="height:2rem; width:auto; max-width:90px; object-fit:contain; opacity:0.75; display:none;" />
+          {{ end }}
+        </div>
+
+        <h2 id="bn-cv-name" class="cv__name">{{ $first.name }}</h2>
+
+        <div class="cv__meta">
+          <span id="bn-cv-sector" class="cv__sector">{{ $first.sector }}</span>
+          {{ with $first.type }}<span id="bn-cv-type" class="cv__type-badge">{{ . }}</span>{{ end }}
+          {{ with $first.start_date }}<span id="bn-cv-period" class="cv__period">{{ . }}{{ with $first.end_date }} – {{ . }}{{ end }}</span>{{ end }}
+        </div>
+
+        <p id="bn-cv-desc" class="featured__desc">{{ $first.desc }}</p>
+
+        {{ with $first.responsibilities }}
+        <ul id="bn-cv-responsibilities" style="margin:0.5rem 0 0.75rem; padding-left:1rem; list-style:disc;">
+          {{ range . }}
+          <li style="font-size:0.72rem; line-height:1.5; opacity:0.75; margin-bottom:0.25rem;">{{ . }}</li>
+          {{ end }}
+        </ul>
+        {{ else }}
+        <ul id="bn-cv-responsibilities" style="margin:0.5rem 0 0.75rem; padding-left:1rem; list-style:disc; display:none;"></ul>
+        {{ end }}
+
+        <div id="bn-cv-tags" class="featured__tags">
+          {{ range $first.tags }}
+          <span class="bn-tag">{{ . }}</span>
+          {{ end }}
+        </div>
+      </div>
+
+      {{/* Key result */}}
+      <div class="cv__result-block">
+        <p class="cv__result-label">Key Result</p>
+        <p id="bn-cv-result" class="cv__result-value">{{ $first.result }}</p>
+      </div>
+    </div>
+
+    {{/* Right: blurred product screenshot block */}}
+    <div id="bn-cv-block" class="bn-featured-mockup cv-block" aria-hidden="true">
+      <img
+        class="cv-block__img"
+        src="https://i.ibb.co/bg04KBBX/image.png"
+        alt=""
+        loading="lazy"
+        draggable="false"
+      />
+      <div class="cv-block__overlay"></div>
+      <span id="bn-cv-watermark" class="cv-block__watermark">{{ $first.name }}</span>
+    </div>
+
+  </div>
+</div><!-- /#bn-client-view -->
+
+
+<script>
+(function () {
+  /* ── Swap to client case-study view ──────────────── */
+  window.bnShowClient = function (el) {
+    var d = el.dataset;
+
+    // Populate dynamic fields
+    document.getElementById('bn-cv-name').textContent      = d.name;
+    document.getElementById('bn-cv-sector').textContent    = d.sector;
+    document.getElementById('bn-cv-desc').textContent      = d.desc;
+    document.getElementById('bn-cv-result').textContent    = d.result;
+    document.getElementById('bn-cv-watermark').textContent = d.name;
+
+    // Logo
+    var logoEl = document.getElementById('bn-cv-logo');
+    if (logoEl) {
+      if (d.logo) {
+        logoEl.src = d.logo;
+        logoEl.alt = d.name + ' logo';
+        logoEl.style.display = '';
+      } else {
+        logoEl.src = '';
+        logoEl.style.display = 'none';
+      }
+    }
+
+    // Type badge
+    var typeEl = document.getElementById('bn-cv-type');
+    if (typeEl) typeEl.textContent = d.type || '';
+
+    // Period
+    var periodEl = document.getElementById('bn-cv-period');
+    if (periodEl) {
+      if (d.startDate) {
+        periodEl.textContent = d.startDate + (d.endDate ? ' – ' + d.endDate : '');
+        periodEl.style.display = '';
+      } else {
+        periodEl.style.display = 'none';
+      }
+    }
+
+    // Responsibilities
+    var respEl = document.getElementById('bn-cv-responsibilities');
+    if (respEl) {
+      respEl.innerHTML = '';
+      var resp = d.responsibilities ? JSON.parse(d.responsibilities) : [];
+      if (resp.length) {
+        resp.forEach(function (item) {
+          var li = document.createElement('li');
+          li.textContent = item;
+          li.style.cssText = 'font-size:0.72rem;line-height:1.5;opacity:0.75;margin-bottom:0.25rem;';
+          respEl.appendChild(li);
+        });
+        respEl.style.display = '';
+      } else {
+        respEl.style.display = 'none';
+      }
+    }
+
+    // Tags
+    var tagsEl = document.getElementById('bn-cv-tags');
+    tagsEl.innerHTML = '';
+    JSON.parse(d.tags).forEach(function (tag) {
+      var s = document.createElement('span');
+      s.textContent = tag;
+      s.className = 'bn-tag';
+      tagsEl.appendChild(s);
+    });
+
+    // Fade animation
+    var cv = document.getElementById('bn-client-view');
+    cv.classList.remove('bn-fadein');
+    void cv.offsetWidth; // force reflow
+    cv.classList.add('bn-fadein');
+
+    // Mark active client chip
+    document.querySelectorAll('.bn-client-item').forEach(function (item) {
+      item.classList.remove('bn-client-item--active');
+    });
+    el.classList.add('bn-client-item--active');
+  };
+
+  /* ── Highlight first client chip on load ─────────── */
+  document.addEventListener('DOMContentLoaded', function () {
+    var first = document.querySelector('.bn-client-item');
+    if (first) first.classList.add('bn-client-item--active');
+  });
+})();
+</script>

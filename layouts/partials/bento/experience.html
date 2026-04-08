@@ -1,0 +1,102 @@
+{{/* ── Experience + Skills card (tabbed) ── */}}
+<div class="exp-card">
+
+  {{/* ── Tab bar ── */}}
+  <div class="exp-tabs" role="tablist">
+    <button
+      class="exp-tab"
+      role="tab"
+      aria-selected="false"
+      aria-controls="exp-panel"
+      onclick="bnExpTab(this,'exp-panel')"
+    >Experience</button>
+    <button
+      class="exp-tab exp-tab--active"
+      role="tab"
+      aria-selected="true"
+      aria-controls="skills-panel"
+      onclick="bnExpTab(this,'skills-panel')"
+    >Skills</button>
+  </div>
+
+  {{/* ── Experience panel ── */}}
+  <div id="exp-panel" class="exp-panel exp-panel--hidden" role="tabpanel">
+    <div class="exp-card__list">
+      {{ range hugo.Data.experiences }}
+      <div class="bn-exp-item">
+        <p class="exp-item__period">{{ .period }}</p>
+        <p class="exp-item__company">{{ .company }}</p>
+        <p class="exp-item__role">{{ .role }}</p>
+        {{ with .desc }}
+        <p class="exp-item__desc">{{ . }}</p>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+
+    <a href="/resume.pdf" class="bn-resume-btn" download aria-label="Download resume PDF">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7,10 12,15 17,10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download Resume
+    </a>
+  </div>
+
+  {{/* ── Skills panel ── */}}
+  <div id="skills-panel" class="exp-panel" role="tabpanel">
+    <div class="skills-scroll">
+
+      {{ range hugo.Data.skills.categories }}
+      <div class="skills-group">
+        <p class="skills-group__name">{{ .name }}</p>
+        <div class="chip-list" role="list">
+          {{ range .items }}
+          <span class="bn-chip" role="listitem">{{ . }}</span>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+
+      <div class="skills-group">
+        <p class="skills-group__name">Soft Skills</p>
+        <div class="chip-list" role="list">
+          {{ range hugo.Data.skills.soft_skills }}
+          <span class="bn-chip bn-chip--accent" role="listitem">{{ . }}</span>
+          {{ end }}
+        </div>
+      </div>
+
+      <div class="skills-group">
+        <p class="skills-group__name">Languages</p>
+        <div class="spoken-langs">
+          {{ range hugo.Data.skills.spoken_languages }}
+          <div class="spoken-lang">
+            <span class="spoken-lang__name">{{ .language }}</span>
+            <span class="spoken-lang__level">{{ .level }}</span>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+window.bnExpTab = function (btn, panelId) {
+  var card = btn.closest('.exp-card');
+  card.querySelectorAll('.exp-tab').forEach(function (t) {
+    t.classList.remove('exp-tab--active');
+    t.setAttribute('aria-selected', 'false');
+  });
+  card.querySelectorAll('.exp-panel').forEach(function (p) {
+    p.classList.add('exp-panel--hidden');
+  });
+  btn.classList.add('exp-tab--active');
+  btn.setAttribute('aria-selected', 'true');
+  document.getElementById(panelId).classList.remove('exp-panel--hidden');
+};
+</script>

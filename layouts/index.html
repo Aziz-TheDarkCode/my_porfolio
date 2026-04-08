@@ -1,0 +1,32 @@
+{{ define "main" }}
+<section class="bento-section" aria-label="Portfolio overview">
+  <div class="bento-grid">
+
+    {{/* ── 1. Hero ─────────────────────────────────────── */}}
+    <div class="bn-card bento-hero" id="hero">
+      {{- partial "bento/hero.html" . -}}
+    </div>
+
+    {{/* ── 2. Social Links ─────────────────────────────── */}}
+    <div class="bn-card bento-socials" id="socials">
+      {{- partial "bento/socials.html" . -}}
+    </div>
+
+    {{/* ── 3. Experience ───────────────────────────────── */}}
+    <div class="bn-card bento-experience" id="experience">
+      {{- partial "bento/experience.html" . -}}
+    </div>
+
+    {{/* ── 5. Featured Project ─────────────────────────── */}}
+    <div class="bn-card bento-featured" id="featured">
+      {{- partial "bento/featured_project.html" . -}}
+    </div>
+
+    {{/* ── 6. Clients ──────────────────────────────────── */}}
+    <div class="bn-card bento-clients" id="clients">
+      {{- partial "bento/clients.html" . -}}
+    </div>
+
+  </div>
+</section>
+{{ end }}

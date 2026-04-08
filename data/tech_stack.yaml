@@ -1,0 +1,35 @@
+# ─────────────────────────────────────────────────────────────────────────
+# Tech Stack chips
+# accent: true  → chip is pre-filled yellow
+# accent: false → chip is outlined (fills yellow on hover)
+# ─────────────────────────────────────────────────────────────────────────
+
+- label: "React"
+  accent: true
+
+- label: "Next.js"
+  accent: false
+
+- label: "TypeScript"
+  accent: false
+
+- label: "Figma"
+  accent: true
+
+- label: "Framer"
+  accent: false
+
+- label: "Tailwind"
+  accent: false
+
+- label: "Node.js"
+  accent: false
+
+- label: "Prisma"
+  accent: false
+
+- label: "Vercel"
+  accent: false
+
+- label: "Webflow"
+  accent: false

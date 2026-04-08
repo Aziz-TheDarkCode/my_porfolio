@@ -1,0 +1,18 @@
+# ─────────────────────────────────────────────────────────────────────────
+# Work Experience
+# To add a new job, paste a new block below. No template changes needed.
+# Fields:
+#   company   – employer name
+#   role      – job title
+#   period    – display string, e.g. "2023 – NOW" or "2021 – 2023"
+#   current   – true | false  (shows yellow "NOW" accent when true)
+#   location  – optional, e.g. "Tunis, Tunisia"
+#   desc      – one-line summary (optional)
+# ─────────────────────────────────────────────────────────────────────────
+
+- company:  "01Edu"
+  role:     "Frontend Engineer"
+  period:   "November 2024 – April 2026"
+  current:  false
+  location: "Remote"
+  desc:     "Leading product design for B2B SaaS clients across fintech and dev-tools verticals."

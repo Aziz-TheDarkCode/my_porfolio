@@ -1,0 +1,43 @@
+{{/* ── Skills card ── */}}
+<div class="bn-card-body skills-card">
+  <span class="bn-label">Skills</span>
+
+  <div class="skills-scroll">
+
+    {{/* ── Technical skill groups ── */}}
+    {{ range hugo.Data.skills.categories }}
+    <div class="skills-group">
+      <p class="skills-group__name">{{ .name }}</p>
+      <div class="chip-list" role="list">
+        {{ range .items }}
+        <span class="bn-chip" role="listitem">{{ . }}</span>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+
+    {{/* ── Soft skills ── */}}
+    <div class="skills-group">
+      <p class="skills-group__name">Soft Skills</p>
+      <div class="chip-list" role="list">
+        {{ range hugo.Data.skills.soft_skills }}
+        <span class="bn-chip bn-chip--accent" role="listitem">{{ . }}</span>
+        {{ end }}
+      </div>
+    </div>
+
+    {{/* ── Spoken languages ── */}}
+    <div class="skills-group">
+      <p class="skills-group__name">Languages</p>
+      <div class="spoken-langs">
+        {{ range hugo.Data.skills.spoken_languages }}
+        <div class="spoken-lang">
+          <span class="spoken-lang__name">{{ .language }}</span>
+          <span class="spoken-lang__level">{{ .level }}</span>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+
+  </div>
+</div>

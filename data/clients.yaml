@@ -1,0 +1,110 @@
+# ─────────────────────────────────────────────────────────────────────────
+# Freelance Clients
+# Each entry appears in the carousel AND drives the featured-card swap.
+# Fields:
+#   name    – large bold display name
+#   sector  – small caption
+#   desc    – one sentence shown in the case-study view
+#   tags    – list of services / deliverables
+#   result  – key metric or outcome (shown large)
+#   color   – hex for the accent block in the case-study view
+# ─────────────────────────────────────────────────────────────────────────
+
+- name: "Pay after"
+  company: "Pay After Ltd"
+  sector: "Fintech"
+  logo: "/{images/clients}/payafter.png"
+  desc: "Designed and developed a BNPL platform for employee benefits across Rwanda and Ivory Coast, handling the full architecture from API to admin dashboard."
+  tags: ["Full-Stack", "Fastify", "React", "Redis", "CI/CD", "Docker"]
+  result: "−78% onboarding time"
+  color: "#90e0ff"
+  role: "Full-Stack Developer"
+  type: "Freelance"
+  start_date: "December 2025"
+  end_date: "Present"
+  responsibilities:
+    - "Designed and developed a BNPL (Buy Now Pay Later) platform for employee benefits across Rwanda and Ivory Coast, handling the full architecture from API to admin dashboard."
+    - "Architected a ledger-based payment system with multi-wallet support, ensuring full transaction traceability and financial consistency."
+    - "Reduced database load and improved API response times by implementing a Redis caching layer."
+    - "Built a responsive admin dashboard with React, TypeScript, React Query, and Zustand to streamline day-to-day internal operations."
+    - "Developed a modular REST API with Fastify and TypeScript (Appwrite as BaaS), covering payments, orders, investor, and partner domains."
+    - "Automated the entire deployment workflow by setting up a CI/CD pipeline with Docker and GitHub Actions."
+
+- name: "01Edu"
+  company: "01Edu"
+  sector: "Ed-tech"
+  logo: "/{images/clients}/01edu.png"
+  desc: "Contributing to the development and maintenance of 'Tournament', a competitive coding platform serving 50+ learners across multiple partner campuses."
+  tags: ["Preact", "TypeScript", "Tailwind CSS", "Deno", "SQL"]
+  result: "+42% template adoption"
+  color: "#c4a1ff"
+  role: "Software Developer"
+  type: "Full-time"
+  start_date: "November 2024"
+  end_date: "April 30, 2026"
+  responsibilities:
+    - "Contributing to the development and maintenance of 'Tournament', a competitive coding platform serving 50+ learners across multiple partner campuses."
+    - "Co-built the platform's UI component library (Preact, TypeScript, Tailwind CSS), cutting new page integration time by 30%."
+    - "Optimized key frontend interfaces, achieving measurable improvements in page load performance."
+    - "Maintained code quality through unit testing and provided backend support including API endpoints (Deno) and SQL queries."
+
+- name: "Komkom"
+  company: "KomKom"
+  sector: "Fintech"
+  logo: "/{images/clients}/komkom.svg"
+  desc: "Owned the full design and development of the landing page delivering a modern, conversion-optimized interface, and built a custom referral module generating 350+ waitlist sign-ups."
+  tags: ["Drupal", "PHP", "Angular", "TypeScript", "Tailwind CSS", "Twig"]
+  result: "350+ waitlist sign-ups"
+  color: "#98f0ab"
+  role: "Web Developer"
+  type: "Freelance"
+  start_date: "April 2025"
+  end_date: "August 2025"
+  responsibilities:
+    - "Owned the full design and development of the landing page (UI/UX, Drupal CMS, Tailwind CSS, Twig), delivering a modern, conversion-optimized interface."
+    - "Built a custom referral module in Drupal and PHP that became the primary acquisition driver, generating 350+ waitlist sign-ups."
+    - "Developed a full internal back-office with Angular and TypeScript, enabling the team to manage tontines, track users, monitor contributions, and oversee draws from a single dashboard."
+
+- name: "Yooagility"
+  sector: "B2B company"
+  logo: "/{images/clients}/yooagility.png"
+  desc: "Designed the plugin marketplace browsing and installation flows, tripling plugin discovery rates."
+  tags: ["Product Design", "User Testing", "UI Specs"]
+  result: "+3× plugin installs"
+  color: "#ff99e6"
+
+- name: "Jumper"
+  sector: "Logistic company"
+  logo: "/{images/clients}/jumper.png"
+  desc: "Redesigned the deployment activity feed and analytics dashboard for teams of 50+ engineers."
+  tags: ["Dashboard Design", "Data Viz", "Dev UX"]
+  result: "−55% support tickets"
+  color: "#FFE000"
+
+- name: "GalsenFit"
+  company: "GalsenFit"
+  sector: "Fitness Brand"
+  logo: "/{images/clients}/galsenfit.png"
+  desc: "Built a custom payment connector integrating Wave and Orange Money into Shopify, automating 120+ daily orders and eliminating all manual SMS payment interventions."
+  tags: ["Next.js", "TypeScript", "Shopify", "GraphQL", "Wave", "Orange Money"]
+  result: "120+ orders/day automated"
+  color: "#90e0ff"
+  role: "Backend Developer"
+  type: "Freelance"
+  start_date: "January 2025"
+  end_date: "March 2025"
+  responsibilities:
+    - "Built a custom payment connector integrating Wave and Orange Money into Shopify (Next.js API routes, TypeScript), solving the absence of any native plugin for these payment methods."
+    - "Automated the processing of 120+ orders per day via Shopify webhooks and GraphQL API."
+    - "Eliminated 100% of manual SMS payment link interventions, saving significant daily operational overhead."
+
+- name: "ITD"
+  sector: "Training school"
+  logo: "/{images/clients}/itd.png"
+  desc: "Created a cohesive design system spanning the web editor, iOS app, and marketing site."
+  tags: ["Design System", "Cross-platform", "Brand"]
+  result: "1 system — 3 platforms"
+  color: "#c4a1ff"
+  responsibilities:
+    - "Integrated mockups and developed UI components using HTML, CSS, JavaScript, and Drupal."
+    - "Gained exposure to a structured professional environment, with an introduction to teamwork practices and Agile methodologies."

@@ -1,0 +1,17 @@
+# ─────────────────────────────────────────────────────────────────────────
+# Social / contact links
+# Listed top-to-bottom in the Social card.
+# type: github | linkedin | email | twitter | dribbble
+# ─────────────────────────────────────────────────────────────────────────
+
+- label: "GitHub"
+  href:  "https://github.com/Aziz-TheDarkCode"
+  type:  "github"
+
+- label: "LinkedIn"
+  href:  "https://www.linkedin.com/in/abdou-aziz-ndiaye-js"
+  type:  "linkedin"
+
+- label: "Email"
+  href:  "mailto:abdouaziznjay@gmail.com"
+  type:  "email"

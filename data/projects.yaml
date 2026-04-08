@@ -1,0 +1,44 @@
+# ─────────────────────────────────────────────────────────────────────────
+# Projects
+# Set featured: true on exactly ONE project — it fills the Featured card.
+# Fields:
+#   title         – project name
+#   featured      – true | false
+#   ghost_number  – decorative "01", "02" etc. shown in background
+#   desc          – short description shown in the card
+#   tags          – list of pills (UX Research, UI Design, etc.)
+#   cta_label     – button text
+#   cta_href      – button link (use "#" as placeholder)
+#   mockup_color  – hex colour for the right-side mockup block
+# ─────────────────────────────────────────────────────────────────────────
+
+- title:         "FinFlow — Banking Reimagined"
+  featured:      true
+  ghost_number:  "01"
+  desc: >
+    Full redesign of a challenger bank's mobile app.
+    Cut onboarding drop-off by 40 % and lifted retention with a
+    clarity-first information architecture and sub-3-step flows.
+  tags:
+    - "UX Research"
+    - "UI Design"
+    - "Prototyping"
+    - "Dev Handoff"
+  cta_label:     "View Case Study"
+  cta_href:      "#"
+  mockup_color:  "#FFE000"
+
+- title:         "Orbit — Design System"
+  featured:      false
+  ghost_number:  "02"
+  desc: >
+    Comprehensive design system built for a 40-person product team.
+    Reduced design-to-dev handoff time by 60 %.
+  tags:
+    - "Design Systems"
+    - "Tokens"
+    - "Figma"
+    - "Storybook"
+  cta_label:     "View Case Study"
+  cta_href:      "#"
+  mockup_color:  "#c4a1ff"
