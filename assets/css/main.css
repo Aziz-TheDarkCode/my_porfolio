@@ -2,7 +2,32 @@
 
 /* ── Tailwind v4 + DaisyUI v5 ─────────────────────── */
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+/* ── DaisyUI light theme overrides ─────────────────── */
+:root, [data-theme="light"] {
+  --color-primary:           #FFE000;
+  --color-primary-content:   #000000;
+  --color-secondary:         #c4a1ff;
+  --color-secondary-content: #000000;
+  --color-accent:            #98f0ab;
+  --color-accent-content:    #000000;
+  --color-neutral:           #000000;
+  --color-neutral-content:   #FFFCF0;
+  --color-base-100:          #FFFCF0;
+  --color-base-200:          #f5f5e8;
+  --color-base-300:          #e8e8d8;
+  --color-base-content:      #000000;
+  --color-info:              #90e0ff;
+  --color-success:           #98f0ab;
+  --color-warning:           #FFE000;
+  --color-error:             #ff6b6b;
+}
+
+/* ── Safelist (force-include dynamic utility classes) ── */
+@source inline("{-translate-y-1,-translate-y-0.5,translate-x-[1px],translate-y-[1px],shadow-[4px_4px_0_0_#000],shadow-[6px_6px_0_0_#000],shadow-[2px_2px_0_0_#000],shadow-[3px_3px_0_0_#000],shadow-[1px_1px_0_0_#000]}");
 
 /* ── Custom design tokens (Tailwind v4 @theme) ─────── */
 @theme {

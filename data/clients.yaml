@@ -68,18 +68,30 @@
 - name: "Yooagility"
   sector: "B2B company"
   logo: "/{images/clients}/yooagility.png"
-  desc: "Designed the plugin marketplace browsing and installation flows, tripling plugin discovery rates."
-  tags: ["Product Design", "User Testing", "UI Specs"]
+  desc: "Built a landing page and training registration platform from zero to production for an agile consulting company."
+  tags: ["Next.js", "Directus", "CMS", "Training Platform"]
   result: "+3× plugin installs"
   color: "#ff99e6"
+  role: "Frontend Developer"
+  type: "Freelance"
+  responsibilities:
+    - "Built a marketing landing page from zero to production for an agile consulting company."
+    - "Developed a training registration platform allowing users to browse, register, and manage course enrollments."
+    - "Integrated Directus as a headless CMS for content management, enabling the client to update content independently."
 
 - name: "Jumper"
   sector: "Logistic company"
   logo: "/{images/clients}/jumper.png"
-  desc: "Redesigned the deployment activity feed and analytics dashboard for teams of 50+ engineers."
-  tags: ["Dashboard Design", "Data Viz", "Dev UX"]
+  desc: "Built a full logistics management system from zero to production, including a parcel tracking website and an admin dashboard for invoicing and payment tracking."
+  tags: ["Next.js", "Supabase", "Prisma", "Admin Dashboard"]
   result: "−55% support tickets"
   color: "#FFE000"
+  role: "Full-Stack Developer"
+  type: "Freelance"
+  responsibilities:
+    - "Developed a comprehensive logistics management system from zero to production, enhancing customer experience and operational efficiency."
+    - "Built a user-friendly marketing website for parcel tracking and shipping requests, streamlining customer interactions."
+    - "Created an admin dashboard for staff to manage parcel information efficiently, including invoicing and payment tracking."
 
 - name: "GalsenFit"
   company: "GalsenFit"
@@ -101,8 +113,8 @@
 - name: "ITD"
   sector: "Training school"
   logo: "/{images/clients}/itd.png"
-  desc: "Created a cohesive design system spanning the web editor, iOS app, and marketing site."
-  tags: ["Design System", "Cross-platform", "Brand"]
+  desc: "Developed UI components and integrated mockups across the web platform using HTML, CSS, JavaScript, and Drupal."
+  tags: ["HTML", "CSS", "JavaScript", "Drupal"]
   result: "1 system — 3 platforms"
   color: "#c4a1ff"
   responsibilities:

@@ -1,4 +1,4 @@
 ---
-title: "Abdou Aziz Ndiaye — Product Designer & Front-End Engineer"
-description: "Portfolio of Abdou Aziz Ndiaye — Product designer & front-end engineer based in Tunis, Tunisia."
+title: "Abdou Aziz Ndiaye — Software Engineer"
+description: "Portfolio of Abdou Aziz Ndiaye — Software engineer based in Dakar, Senegal."
 ---
