@@ -20,7 +20,7 @@
   result: "−78% onboarding time"
   color: "#90e0ff"
   role: "Full-Stack Developer"
-  type: "Freelance"
+  type: "Consulting"
   start_date: "December 2025"
   end_date: "Present"
   responsibilities:
@@ -35,7 +35,7 @@
   company: "01Edu"
   sector: "Ed-tech"
   logo: "/{images/clients}/01edu.png"
-  desc: "Contributing to the development and maintenance of 'Tournament', a competitive coding platform serving 50+ learners across multiple partner campuses."
+  desc: "Contributed to the development and maintenance of 'Tournament', a competitive coding platform serving learners across multiple partner campuses."
   tags: ["Preact", "TypeScript", "Tailwind CSS", "Deno", "SQL"]
   result: "+42% template adoption"
   color: "#c4a1ff"
@@ -54,7 +54,7 @@
   sector: "Fintech"
   logo: "/{images/clients}/komkom.svg"
   screenshot: "/{images/clients}/komkom-screenshot.png"
-  desc: "Owned the full design and development of the landing page delivering a modern, conversion-optimized interface, and built a custom referral module generating 350+ waitlist sign-ups."
+  desc: "Kom Kom (komkomapp.com) is a digital platform designed to modernize the traditional African system of collective savings, commonly known as tontines. It aims to foster financial inclusion, solidarity, and economic empowerment in Africa"
   tags: ["Drupal", "PHP", "Angular", "TypeScript", "Tailwind CSS", "Twig"]
   result: "350+ waitlist sign-ups"
   color: "#98f0ab"
