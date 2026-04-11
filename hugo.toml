@@ -21,7 +21,7 @@ enableRobotsTXT = true
   location_flag = "🇸🇳"
   open_to     = "Open to remote"
   description = "Portfolio of Abdou Aziz Ndiaye — Software engineer based in Dakar."
-  og_image    = "/images/og.png"
+  og_image    = "/og_image.png"
   iconify_cdn = "https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"
 
 [params.hero]

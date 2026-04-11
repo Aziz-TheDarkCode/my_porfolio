@@ -536,6 +536,10 @@
   height: 100%;
 }
 
+#bn-client-view .bn-featured-inner {
+  grid-template-columns: 1.6fr 1fr;
+}
+
 .bn-featured-inner--padded { padding: 1.625rem; }
 .bn-featured-inner--full   { height: 100%; }
 

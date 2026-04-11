@@ -14,6 +14,7 @@
   company: "Pay After Ltd"
   sector: "Fintech"
   logo: "/{images/clients}/payafter.png"
+  screenshot: "/{images/clients}/payafter-screenshot.png"
   desc: "Designed and developed a BNPL platform for employee benefits across Rwanda and Ivory Coast, handling the full architecture from API to admin dashboard."
   tags: ["Full-Stack", "Fastify", "React", "Redis", "CI/CD", "Docker"]
   result: "−78% onboarding time"
@@ -52,6 +53,7 @@
   company: "KomKom"
   sector: "Fintech"
   logo: "/{images/clients}/komkom.svg"
+  screenshot: "/{images/clients}/komkom-screenshot.png"
   desc: "Owned the full design and development of the landing page delivering a modern, conversion-optimized interface, and built a custom referral module generating 350+ waitlist sign-ups."
   tags: ["Drupal", "PHP", "Angular", "TypeScript", "Tailwind CSS", "Twig"]
   result: "350+ waitlist sign-ups"
@@ -82,6 +84,7 @@
 - name: "Jumper"
   sector: "Logistic company"
   logo: "/{images/clients}/jumper.png"
+  screenshot: "/{images/clients}/jumper-screenshot.png"
   desc: "Built a full logistics management system from zero to production, including a parcel tracking website and an admin dashboard for invoicing and payment tracking."
   tags: ["Next.js", "Supabase", "Prisma", "Admin Dashboard"]
   result: "−55% support tickets"
@@ -97,6 +100,7 @@
   company: "GalsenFit"
   sector: "Fitness Brand"
   logo: "/{images/clients}/galsenfit.png"
+  screenshot: "/{images/clients}/galsenfit-screenshot.png"
   desc: "Built a custom payment connector integrating Wave and Orange Money into Shopify, automating 120+ daily orders and eliminating all manual SMS payment interventions."
   tags: ["Next.js", "TypeScript", "Shopify", "GraphQL", "Wave", "Orange Money"]
   result: "120+ orders/day automated"
@@ -113,6 +117,7 @@
 - name: "ITD"
   sector: "Training school"
   logo: "/{images/clients}/itd.png"
+  screenshot: "/{images/clients}/itd-screenshot.png"
   desc: "Developed UI components and integrated mockups across the web platform using HTML, CSS, JavaScript, and Drupal."
   tags: ["HTML", "CSS", "JavaScript", "Drupal"]
   result: "1 system — 3 platforms"

@@ -60,8 +60,9 @@
     {{/* Right: blurred product screenshot block */}}
     <div id="bn-cv-block" class="bn-featured-mockup cv-block" aria-hidden="true">
       <img
+        id="bn-cv-screenshot"
         class="cv-block__img"
-        src="https://i.ibb.co/bg04KBBX/image.png"
+        src="{{ $first.screenshot }}"
         alt=""
         loading="lazy"
         draggable="false"
@@ -86,6 +87,10 @@
     document.getElementById('bn-cv-desc').textContent      = d.desc;
     document.getElementById('bn-cv-result').textContent    = d.result;
     document.getElementById('bn-cv-watermark').textContent = d.name;
+
+    // Screenshot
+    var screenshotEl = document.getElementById('bn-cv-screenshot');
+    if (screenshotEl && d.screenshot) screenshotEl.src = d.screenshot;
 
     // Logo
     var logoEl = document.getElementById('bn-cv-logo');
