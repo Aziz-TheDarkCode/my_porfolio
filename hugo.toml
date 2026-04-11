@@ -11,6 +11,7 @@ enableRobotsTXT = true
     dir = ':cacheDir/images'
 
 [params]
+  ga_id       = "G-4KVFK0KQW9"
   name        = "Abdou Aziz Ndiaye"
   email       = "workwith@abdouaziz.dev"
   phone       = "+221 78 630 06 14"
@@ -19,7 +20,7 @@ enableRobotsTXT = true
   available   = true
   location    = "Dakar, Senegal"
   location_flag = "🇸🇳"
-  open_to     = "Open to remote"
+  open_to     = "Open to collaborative full stack opportunities."
   description = "Portfolio of Abdou Aziz Ndiaye — Software engineer based in Dakar."
   og_image    = "/og_image.png"
   iconify_cdn = "https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"
