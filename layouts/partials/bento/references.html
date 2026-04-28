@@ -1,0 +1,25 @@
+{{/* ── References card ── */}}
+<div class="bn-card-body bn-card-body--flex">
+  <span class="bn-label">References</span>
+
+  <div class="ref-list">
+    {{ range hugo.Data.references }}
+    <div class="ref-item">
+      <div class="ref-item__avatar" aria-hidden="true">
+        {{ substr .name 0 1 | upper }}
+      </div>
+      <div class="ref-item__body">
+        <p class="ref-item__name">{{ .name }}</p>
+        <p class="ref-item__company">{{ .company }}</p>
+        <a href="mailto:{{ .email }}" class="ref-item__email" aria-label="Email {{ .name }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <polyline points="2,4 12,13 22,4"/>
+          </svg>
+          {{ .email }}
+        </a>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</div>

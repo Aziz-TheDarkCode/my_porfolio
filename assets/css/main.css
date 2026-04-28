@@ -348,6 +348,59 @@
 .bn-clients-track::-webkit-scrollbar { display: none; }
 .bn-clients-track:active { cursor: grabbing; }
 
+/* ── References card ───────────────────────────────────── */
+.ref-list {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+}
+.ref-item {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 2px solid var(--color-nb-black);
+  padding: 0.875rem 1rem;
+  background: var(--color-nb-white);
+}
+.ref-item__avatar {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: var(--color-nb-yellow);
+  border: 2px solid var(--color-nb-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  font-family: var(--font-heading);
+}
+.ref-item__body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ref-item__name { font-weight: 600; font-size: 0.75rem; }
+.ref-item__company {
+  font-size: 0.575rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+.ref-item__email {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  margin-top: 6px;
+  color: var(--color-nb-black);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-all;
+}
+.ref-item__email:hover { opacity: 0.6; }
+@media (max-width: 680px) {
+  .ref-list { flex-direction: column; }
+}
+
 /* ── Featured card view swap animation ─────────────────── */
 @keyframes bn-fadein {
   from { opacity: 0; transform: translateY(10px); }
@@ -376,6 +429,7 @@
 .bento-experience { grid-column: 10 / 13; grid-row: 1 / 5; }
 .bento-featured   { grid-column: 1 / 10; grid-row: 3 / 5; }
 .bento-clients    { grid-column: 1 / 13; grid-row: 5 / 6; }
+.bento-references { grid-column: 1 / 13; grid-row: 6 / 7; }
 
 /* ── Responsive — tablet ──────────────────────────────── */
 @media (max-width: 1024px) {
@@ -384,6 +438,7 @@
   .bento-experience { grid-column: 1 / 7;  grid-row: 2 / 3; }
   .bento-featured   { grid-column: 1 / 13; grid-row: 3 / 4; }
   .bento-clients    { grid-column: 1 / 13; grid-row: 4 / 5; }
+  .bento-references { grid-column: 1 / 13; grid-row: 5 / 6; }
   .bn-featured-ghost { display: none; }
 }
 
@@ -391,7 +446,8 @@
 @media (max-width: 680px) {
   .bento-grid { grid-template-columns: 1fr; gap: 8px; }
   .bento-hero, .bento-socials,
-  .bento-experience, .bento-featured, .bento-clients {
+  .bento-experience, .bento-featured, .bento-clients,
+  .bento-references {
     grid-column: 1;
     grid-row: auto;
   }
