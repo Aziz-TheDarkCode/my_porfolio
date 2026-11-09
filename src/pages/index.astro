@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const sections = (await getCollection('sections')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const renderedSections = await Promise.all(
+  sections.map(async (section) => {
+    const { Content } = await render(section);
+    return { section, Content };
+  }),
+);
+---
+
+<Layout title="Portfolio">
+  <div class="relative">
+    <div
+      aria-hidden="true"
+      class="pointer-events-none fixed inset-x-0 top-0 z-40 h-28 bg-gradient-to-b from-brand/25 to-transparent"
+    />
+    <main class="relative mx-auto max-w-2xl px-6 py-16 sm:py-24">
+    <div class="divide-y divide-ink/10">
+      {
+        renderedSections.map(({ section, Content }) => (
+          <section id={section.id} class="py-12 first:pt-0 last:pb-0">
+            {
+              section.data.title && (
+                <h2 class="section-label">{section.data.title}</h2>
+              )
+            }
+            {
+              section.data.hint && (
+                <p class="section-hint">{section.data.hint}</p>
+              )
+            }
+
+            <div class="prose mt-6 max-w-none">
+              <Content />
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </main>
+  </div>
+</Layout>

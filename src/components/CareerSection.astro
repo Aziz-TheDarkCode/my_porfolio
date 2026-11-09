@@ -1,0 +1,150 @@
+---
+import { getCollection, render } from 'astro:content';
+
+const positions = (await getCollection('career'))
+  .filter((position) => !position.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const rendered = await Promise.all(
+  positions.map(async (position) => {
+    const { Content } = await render(position);
+    return { position, Content };
+  }),
+);
+---
+
+<ul class="not-prose divide-y divide-ink/10">
+  {
+    rendered.map(({ position, Content }, index) => (
+      <li class="py-4 first:pt-0 last:pb-0">
+        <details class="career-entry" open={index === 0}>
+          <summary class="career-summary">
+            <span class="career-icon" aria-hidden="true" />
+            <h3 class="font-medium">
+              {position.data.role}
+              <span> at </span>
+              {
+                position.data.url ? (
+                  <a
+                    href={position.data.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-ink-soft hover:text-ink"
+                  >
+                    {position.data.logo && (
+                      <img
+                        src={position.data.logo}
+                        alt=""
+                        class="mr-1 inline-block h-[1em] w-auto align-[-0.125em]"
+                      />
+                    )}
+                    {position.data.company}
+                  </a>
+                ) : (
+                  <span class="text-ink-soft">
+                    {position.data.logo && (
+                      <img
+                        src={position.data.logo}
+                        alt=""
+                        class="mr-1 inline-block h-[1em] w-auto align-[-0.125em]"
+                      />
+                    )}
+                    {position.data.company}
+                  </span>
+                )
+              }
+            </h3>
+            <span class="career-period">{position.data.period}</span>
+          </summary>
+          <div class="career-details">
+            <p class="text-ink-soft">{position.data.headline}</p>
+            <div class="career-body mt-2">
+              <Content />
+            </div>
+          </div>
+        </details>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .career-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .career-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .career-icon {
+    flex-shrink: 0;
+    width: 1rem;
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--color-ink-soft);
+  }
+
+  .career-icon::before {
+    content: '+';
+  }
+
+  .career-entry[open] .career-icon::before {
+    content: '−';
+  }
+
+  .career-summary:hover h3 {
+    text-decoration: underline;
+    text-decoration-color: var(--color-brand);
+    text-underline-offset: 3px;
+  }
+
+  .career-period {
+    margin-left: auto;
+    font-size: 0.875rem;
+    color: var(--color-ink-soft);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 40rem) {
+    .career-period {
+      flex-basis: 100%;
+      margin-left: 0;
+      padding-left: 1.5rem;
+    }
+  }
+
+  .career-details {
+    margin-left: 1.5rem;
+    padding-top: 0.25rem;
+  }
+
+  .career-details p {
+    margin: 0;
+  }
+
+  .career-body :global(p) {
+    margin: 0;
+  }
+
+  .career-body :global(p + p) {
+    margin-top: 0.5rem;
+  }
+
+  .career-body :global(img) {
+    display: inline-block;
+    height: 1em;
+    width: auto;
+    vertical-align: -0.125em;
+  }
+
+  .career-body :global(strong) {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>

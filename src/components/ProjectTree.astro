@@ -1,0 +1,362 @@
+---
+import { getCollection, render } from 'astro:content';
+
+interface Props {
+  /** Whether every project node starts expanded. The first node always starts expanded. */
+  defaultOpen?: boolean;
+  /** Label for the optional call-to-action rendered at the end of the list. */
+  ctaLabel?: string;
+  /** Link target for the call-to-action. When set, the CTA is rendered. */
+  ctaHref?: string;
+}
+
+const { defaultOpen = false, ctaLabel, ctaHref } = Astro.props;
+
+// Display the hostname (e.g. www.site.com) instead of the full URL.
+const formatHost = (url: string | URL): string => {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return String(url);
+  }
+};
+
+const projects = (await getCollection('projects'))
+  .filter((project) => !project.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const renderedProjects = await Promise.all(
+  projects.map(async (project) => {
+    const { Content } = await render(project);
+    return { project, Content };
+  }),
+);
+---
+
+<ul class="tree not-prose" role="tree" aria-label="Selected projects">
+  {
+    renderedProjects.map(({ project, Content }, index) => {
+      const groupId = `tree-group-${index}`;
+      const expanded = defaultOpen || index === 0;
+      return (
+        <li class="tree-branch" role="treeitem">
+          <button
+            type="button"
+            class="tree-toggle"
+            aria-expanded={expanded ? 'true' : 'false'}
+            aria-controls={groupId}
+            tabindex={index === 0 ? 0 : -1}
+          >
+            <span class="tree-icon">{expanded ? '−' : '+'}</span>
+            <span class="tree-title">{project.data.title}</span>
+          </button>
+          <ul id={groupId} class="tree-group" role="group" hidden={!expanded}>
+            <li class="tree-leaf" role="treeitem" tabindex="-1">
+              <span class="tree-leaf-text ">{project.data.headline}</span>
+            </li>
+            <li class="tree-leaf" role="treeitem" tabindex="-1">
+              <div class="tree-leaf-text">
+                <Content />
+              </div>
+            </li>
+            {project.data.url && (
+              <li class="tree-leaf flex items-center gap-2" role="treeitem" tabindex="-1">
+Visit the website
+                  <a
+                  class="tree-leaf-text tree-link"
+                  href={project.data.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {formatHost(project.data.url)}
+                  <span class="tree-link-arrow" aria-hidden="true">↗</span>
+                </a>
+              </li>
+            )}
+          </ul>
+        </li>
+      );
+    })
+  }
+  {
+    ctaHref && (
+      <li class="tree-cta">
+        <a class="tree-toggle" href={ctaHref}>
+          <span class="tree-icon">+</span>
+          <span class="tree-title">{ctaLabel || ctaHref}</span>
+        </a>
+      </li>
+    )
+  }
+</ul>
+
+<style>
+  .tree {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tree-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.5rem;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .tree-toggle:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  .tree-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--color-ink-soft);
+  }
+
+  .tree-title {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 1.05rem;
+    letter-spacing: 0;
+  }
+
+  .tree-toggle:hover .tree-title {
+    text-decoration: underline;
+    text-decoration-color: var(--color-brand);
+    text-underline-offset: 3px;
+  }
+
+  .tree-group {
+    --tree-indent: 1.75rem;
+    --tree-gap: 0.5rem;
+    list-style: none;
+    margin: 0.25rem 0 0 0.6rem;
+    padding-left: var(--tree-indent);
+    border-left: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  }
+
+  .tree-group:not([hidden]) {
+    animation: tree-reveal 0.2s ease-out;
+  }
+
+  @keyframes tree-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(-2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .tree-leaf {
+    position: relative;
+    margin-top: 0.6rem;
+  }
+
+  .tree-leaf::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--tree-indent));
+    top: 0.75em;
+    width: calc(var(--tree-indent) - var(--tree-gap));
+    border-top: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  }
+
+
+  .tree-leaf-text {
+    display: block;
+    margin-top: 0.1rem;
+  }
+
+  .tree-leaf-text :global(p) {
+    margin: 0;
+  }
+
+  .tree-leaf-text :global(p + p) {
+    margin-top: 0.5rem;
+  }
+
+  .tree-leaf-text :global(img) {
+    display: inline-block;
+    height: 1em;
+    width: auto;
+    vertical-align: -0.125em;
+  }
+
+  .tree-leaf-text :global(strong) {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .tree-link {
+    color: var(--color-brand);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-brand) 45%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .tree-link:hover {
+    text-decoration-color: var(--color-brand);
+  }
+
+  .tree-link-arrow {
+    display: inline-block;
+    margin-left: 0.3rem;
+    font-size: 0.85em;
+    transition: transform 0.15s ease-out;
+  }
+
+  .tree-link:hover .tree-link-arrow {
+    transform: translate(1px, -1px);
+  }
+</style>
+
+<script>
+  function initTree(tree: HTMLElement) {
+    interface TreeNode {
+      element: HTMLElement;
+      type: 'branch' | 'leaf';
+      item: HTMLElement;
+    }
+
+    const nodes: TreeNode[] = [];
+
+    tree.querySelectorAll<HTMLElement>('[role="treeitem"]').forEach((item) => {
+      if (item.classList.contains('tree-branch')) {
+        const toggle = item.querySelector<HTMLElement>(':scope > .tree-toggle');
+        if (toggle) nodes.push({ element: toggle, type: 'branch', item });
+      } else {
+        nodes.push({ element: item, type: 'leaf', item });
+      }
+    });
+
+    const isExpanded = (branch: HTMLElement) =>
+      branch
+        .querySelector<HTMLElement>(':scope > .tree-toggle')
+        ?.getAttribute('aria-expanded') === 'true';
+
+    const setExpanded = (branch: HTMLElement, expanded: boolean) => {
+      const toggle = branch.querySelector<HTMLElement>(':scope > .tree-toggle');
+      const group = branch.querySelector<HTMLElement>(':scope > .tree-group');
+      toggle?.setAttribute('aria-expanded', String(expanded));
+      const icon = toggle?.querySelector<HTMLElement>('.tree-icon');
+      if (icon) icon.textContent = expanded ? '−' : '+';
+      if (group) group.hidden = !expanded;
+    };
+
+    const isVisible = (node: TreeNode) => {
+      let el = node.item.parentElement;
+      while (el && el !== tree) {
+        if (el.classList.contains('tree-branch') && !isExpanded(el)) return false;
+        el = el.parentElement;
+      }
+      return true;
+    };
+
+    const focusNode = (node: TreeNode) => {
+      nodes.forEach((n) => (n.element.tabIndex = -1));
+      node.element.tabIndex = 0;
+      node.element.focus();
+    };
+
+    const findNodeByItem = (item: HTMLElement | null) =>
+      item ? nodes.find((n) => n.item === item) : undefined;
+
+    const parentBranchNode = (node: TreeNode) => {
+      let el = node.item.parentElement;
+      while (el && el !== tree) {
+        if (el.classList.contains('tree-branch')) return findNodeByItem(el);
+        el = el.parentElement;
+      }
+      return undefined;
+    };
+
+    const firstChildNode = (node: TreeNode) => {
+      const group = node.item.querySelector<HTMLElement>(':scope > .tree-group');
+      if (!group) return undefined;
+      for (const child of group.children) {
+        const childNode = findNodeByItem(child as HTMLElement);
+        if (childNode) return childNode;
+      }
+      return undefined;
+    };
+
+    tree.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+      const toggle = target.closest<HTMLElement>('.tree-toggle');
+      if (!toggle) return;
+      const branch = toggle.closest<HTMLElement>('.tree-branch');
+      if (!branch) return;
+      setExpanded(branch, !isExpanded(branch));
+    });
+
+    tree.addEventListener('keydown', (event) => {
+      const node = nodes.find((n) => n.element === event.target);
+      if (!node) return;
+
+      const visible = nodes.filter(isVisible);
+      const index = visible.indexOf(node);
+
+      switch (event.key) {
+        case 'ArrowDown':
+          event.preventDefault();
+          focusNode(visible[(index + 1) % visible.length]);
+          break;
+        case 'ArrowUp':
+          event.preventDefault();
+          focusNode(visible[(index - 1 + visible.length) % visible.length]);
+          break;
+        case 'Home':
+          event.preventDefault();
+          focusNode(visible[0]);
+          break;
+        case 'End':
+          event.preventDefault();
+          focusNode(visible[visible.length - 1]);
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          if (node.type === 'branch') {
+            if (!isExpanded(node.item)) {
+              setExpanded(node.item, true);
+            } else {
+              const child = firstChildNode(node);
+              if (child) focusNode(child);
+            }
+          }
+          break;
+        case 'ArrowLeft':
+          event.preventDefault();
+          if (node.type === 'branch' && isExpanded(node.item)) {
+            setExpanded(node.item, false);
+          } else {
+            const parent = parentBranchNode(node);
+            if (parent) focusNode(parent);
+          }
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('.tree').forEach(initTree);
+</script>

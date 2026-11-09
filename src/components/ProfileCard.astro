@@ -1,0 +1,33 @@
+---
+interface Props {
+  name: string;
+  headline: string;
+  /** Path or URL to the profile photo. Omit to render initials instead. */
+  photo?: string;
+  photoAlt?: string;
+}
+
+const { name, headline, photo, photoAlt } = Astro.props;
+
+const alt = photoAlt || `Portrait of ${name}`;
+---
+
+<figure class="not-prose flex items-center gap-5">
+  <div class="relative h-20 w-20 shrink-0">
+    <img
+      src={photo}
+      alt={alt}
+      width="80"
+      height="80"
+      loading="lazy"
+      class="h-20 w-20 object-cover mask mask-squircle"
+    />
+    <div
+      class="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/70 to-transparent mask mask-squircle"
+    />
+  </div>
+  <figcaption class="flex flex-col">
+    <span class="font-display text-2xl md:text-3xl font-bold leading-none tracking-tight">{name}</span>
+    <span class="mt-2 text-ink-soft">{headline}</span>
+  </figcaption>
+</figure>

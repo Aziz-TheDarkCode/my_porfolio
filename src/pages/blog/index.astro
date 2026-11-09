@@ -1,0 +1,43 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+---
+
+<Layout title="Blog">
+  <main class="mx-auto max-w-2xl px-6 py-16 sm:py-24">
+    <a href="/" class="text-sm text-ink-soft hover:text-ink">← Home</a>
+    <h1 class="mt-6 text-2xl font-medium tracking-tight sm:text-3xl">Blog</h1>
+
+    <ul class="mt-10 divide-y divide-ink/10">
+      {
+        posts.map((post) => (
+          <li class="py-4 first:pt-0 last:pb-0">
+            <a
+              href={`/blog/${post.id}/`}
+              class="flex items-baseline justify-between gap-6"
+            >
+              <h2 class="font-medium">{post.data.title}</h2>
+              <time
+                class="shrink-0 text-sm text-ink-soft"
+                datetime={post.data.pubDate.toISOString()}
+              >
+                {formatDate(post.data.pubDate)}
+              </time>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>

@@ -1,0 +1,51 @@
+---
+import '@fontsource/afacad/400.css';
+import '@fontsource/afacad/500.css';
+import '@fontsource/afacad/600.css';
+import '@fontsource/afacad/700.css';
+import '@fontsource/pixelify-sans/400.css';
+import '@fontsource/pixelify-sans/500.css';
+import '@fontsource/pixelify-sans/600.css';
+import '@fontsource/pixelify-sans/700.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Portfolio' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f3d2c3" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body class="elative min-h-screen bg-paper text-ink">
+
+    <div
+      aria-hidden="true"
+      class="pointer-events-none fixed left-1/2 top-0 z-50 -translate-x-1/2"
+    >
+      <div class="flex h-7 w-40 items-center justify-center rounded-b-2xl bg-ink shadow-md sm:h-8 sm:w-52 lg:h-10 lg:w-72">
+        <span class="h-2 w-2 rounded-full bg-white/20 sm:h-2.5 sm:w-2.5"></span>
+      </div>
+    </div>
+    <slot />
+    <footer class="mx-auto flex justify-end  max-w-2xl px-6 pb-10">
+      <img
+        src="/signature.png"
+        alt="Abdou A. Ndiaye"
+        width="1250"
+        height="81"
+        loading="lazy"
+        class="h-16 w-auto mix-blend-multiply"
+      />
+    </footer>
+  </body>
+</html>

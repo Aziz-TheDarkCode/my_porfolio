@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="404 — Page not found"
+  description="The page you're looking for doesn't exist or has moved."
+>
+  <main
+    class="mx-auto flex min-h-[70vh] max-w-2xl flex-col justify-center px-6 py-16 sm:py-24"
+  >
+    <p class="section-label">Error 404</p>
+
+    <div class="mt-6 flex items-end gap-4">
+      <span
+        class="font-display text-6xl font-bold leading-none tracking-tight sm:text-8xl"
+      >
+        404
+      </span>
+      <span
+        aria-hidden="true"
+        class="mb-2 h-2 w-2 shrink-0 rounded-full bg-brand sm:mb-3"
+      ></span>
+    </div>
+
+    <div class="mt-8 max-w-md border-t border-ink/10 pt-6">
+      <h1 class="text-xl font-medium tracking-tight sm:text-2xl">
+        This page wandered off.
+      </h1>
+      <p class="mt-3 text-ink-soft">
+        The link may be broken, or the page may have moved somewhere else.
+      </p>
+    </div>
+
+    <nav class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+      <a href="/" class="text-ink-soft hover:text-ink">← Back home</a>
+      <a href="/blog" class="text-ink-soft hover:text-ink">Read the blog</a>
+    </nav>
+  </main>
+</Layout>
