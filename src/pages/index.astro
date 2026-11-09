@@ -2,10 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 
-const posts = (await getCollection('blog'))
-  .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
 const sections = (await getCollection('sections')).sort(
   (a, b) => a.data.order - b.data.order,
 );
@@ -18,7 +14,10 @@ const renderedSections = await Promise.all(
 );
 ---
 
-<Layout title="Portfolio">
+<Layout
+  title="Abdou A. Ndiaye — Software Engineer"
+  description="Abdou A. Ndiaye is a software engineer who builds thoughtful web products, from the architecture down to the smallest details of the experience."
+>
   <div class="relative">
     <div
       aria-hidden="true"

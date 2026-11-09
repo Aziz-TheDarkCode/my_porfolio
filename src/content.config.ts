@@ -8,6 +8,15 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    /** Content language, drives `<html lang>` and `og:locale`. */
+    lang: z.enum(['en', 'fr']).default('en'),
+    /** Path or absolute URL to the article's social preview image. */
+    image: z.string().optional(),
+    /** Alt text for the social preview image; falls back to the description. */
+    imageAlt: z.string().optional(),
+    /** Short note shown under the image, e.g. to disclose how it was produced. */
+    imageHint: z.string().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
   }),

@@ -12,21 +12,120 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
+  /** Site-relative or absolute image used for social previews. */
+  image?: string;
+  /** Alt text for the social preview image; defaults to the description. */
+  imageAlt?: string;
+  /** Open Graph object type. Use `article` for blog posts. */
+  type?: 'website' | 'article';
+  /** Page language, exposed as `<html lang>` and `og:locale`. */
+  lang?: 'en' | 'fr';
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  tags?: string[];
+  /** Extra schema.org objects; merged with the site-wide Person entity. */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description = 'Portfolio' } = Astro.props;
+const {
+  title,
+  description = 'Portfolio',
+  noindex = false,
+  image = '/og.png',
+  imageAlt,
+  type = 'website',
+  lang = 'en',
+  publishedTime,
+  modifiedTime,
+  tags = [],
+  jsonLd,
+} = Astro.props;
+
+const siteName = 'Abdou A. Ndiaye';
+const site = Astro.site ?? new URL('https://abdouaziz.dev');
+
+const canonical = new URL(Astro.url.pathname, site);
+if (!canonical.pathname.endsWith('/')) canonical.pathname += '/';
+canonical.search = '';
+canonical.hash = '';
+
+const imageUrl = new URL(image, site);
+
+const locales = { en: 'en_US', fr: 'fr_FR' } as const;
+
+const person = {
+  '@type': 'Person',
+  '@id': new URL('/#person', site).href,
+  name: siteName,
+  url: new URL('/', site).href,
+  jobTitle: 'Software Engineer',
+  image: new URL('/head.jpg', site).href,
+  sameAs: ['https://github.com/Aziz-TheDarkCode'],
+};
+
+// Strip `@context` so every node can share a single `@graph`.
+const extraNodes = (jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : []).map(
+  ({ '@context': _context, ...node }) => node,
+);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [person, ...extraNodes],
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f3d2c3" />
-    <meta name="description" content={description} />
+    <meta name="theme-color" content="#fbfaf8" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={siteName} />
+    <link rel="canonical" href={canonical} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, follow" />
+      ) : (
+        <meta name="robots" content="index, follow" />
+      )
+    }
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt ?? description} />
+    <meta property="og:locale" content={locales[lang]} />
+    {
+      publishedTime && (
+        <meta property="article:published_time" content={publishedTime.toISOString()} />
+      )
+    }
+    {
+      modifiedTime && (
+        <meta property="article:modified_time" content={modifiedTime.toISOString()} />
+      )
+    }
+    {tags.map((tag) => <meta property="article:tag" content={tag} />)}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
-  <body class="elative min-h-screen bg-paper text-ink">
+  <body class="min-h-screen bg-paper text-ink">
 
     <div
       aria-hidden="true"

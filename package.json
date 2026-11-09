@@ -8,10 +8,13 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "favicons": "node scripts/fetch-favicons.mjs",
+    "images": "node scripts/generate-og.mjs && node scripts/generate-blog-images.mjs",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.1",
+    "@astrojs/sitemap": "^3.7.4",
     "@fontsource/afacad": "^5.3.0",
     "@fontsource/pixelify-sans": "^5.3.0",
     "astro": "^7.3.2",
@@ -21,6 +24,7 @@
     "@astrojs/check": "^0.9.10",
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3"
   }

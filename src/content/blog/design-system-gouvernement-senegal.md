@@ -2,6 +2,10 @@
 title: "Et si le gouvernement sénégalais avait un design system ?"
 description: "Et si le gouvernement sénégalais adoptait un Design System ? Explorer les bénéfices d'une infrastructure de design unifiée pour les services publics."
 pubDate: 2026-09-13
+lang: fr
+image: "/blog/design-system-gouvernement-senegal.jpg"
+imageAlt: "Illustration d'un design system gouvernemental pour le Sénégal : drapeau national, bâtiment officiel et bibliothèque de composants UI."
+imageHint: "AI-generated illustration."
 tags: ["design system", "ux", "sénégal", "gouvernement"]
 draft: false
 ---

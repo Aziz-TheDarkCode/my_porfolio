@@ -7,17 +7,23 @@ const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const formatDate = (date: Date) =>
-  date.toLocaleDateString(undefined, {
+  date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
   });
 ---
 
-<Layout title="Blog">
+<Layout
+  title="Blog — Abdou A. Ndiaye"
+  description="Notes on software engineering, design systems, and building products."
+>
   <main class="mx-auto max-w-2xl px-6 py-16 sm:py-24">
     <a href="/" class="text-sm text-ink-soft hover:text-ink">← Home</a>
     <h1 class="mt-6 text-2xl font-medium tracking-tight sm:text-3xl">Blog</h1>
+    <p class="mt-3 text-ink-soft">
+      Notes on software engineering, design systems, and building products.
+    </p>
 
     <ul class="mt-10 divide-y divide-ink/10">
       {
