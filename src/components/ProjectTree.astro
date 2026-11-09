@@ -21,6 +21,20 @@ const formatHost = (url: string | URL): string => {
   }
 };
 
+// Favicons are downloaded by `pnpm favicons` into src/assets/favicons/<project>.ext
+const favicons = import.meta.glob<string>('../assets/favicons/*', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+});
+
+const faviconBySlug = new Map(
+  Object.entries(favicons).map(([file, url]) => [
+    file.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '',
+    url,
+  ]),
+);
+
 const projects = (await getCollection('projects'))
   .filter((project) => !project.data.draft)
   .sort((a, b) => a.data.order - b.data.order);
@@ -28,15 +42,24 @@ const projects = (await getCollection('projects'))
 const renderedProjects = await Promise.all(
   projects.map(async (project) => {
     const { Content } = await render(project);
-    return { project, Content };
+    const host = project.data.url ? formatHost(project.data.url) : undefined;
+
+    return {
+      project,
+      Content,
+      host,
+      favicon: faviconBySlug.get(project.id),
+      initial: host?.replace(/^www\./, '').charAt(0).toUpperCase(),
+    };
   }),
 );
 ---
 
 <ul class="tree not-prose" role="tree" aria-label="Selected projects">
   {
-    renderedProjects.map(({ project, Content }, index) => {
+    renderedProjects.map(({ project, Content, host, favicon, initial }, index) => {
       const groupId = `tree-group-${index}`;
+      const labelHintId = `tree-label-hint-${index}`;
       const expanded = defaultOpen || index === 0;
       return (
         <li class="tree-branch" role="treeitem">
@@ -45,11 +68,27 @@ const renderedProjects = await Promise.all(
             class="tree-toggle"
             aria-expanded={expanded ? 'true' : 'false'}
             aria-controls={groupId}
+            aria-describedby={project.data.labelHint ? labelHintId : undefined}
             tabindex={index === 0 ? 0 : -1}
           >
             <span class="tree-icon">{expanded ? '−' : '+'}</span>
             <span class="tree-title">{project.data.title}</span>
+            {project.data.label && (
+              <span class="tree-badge">
+                {project.data.label}
+                {project.data.labelHint && (
+                  <span class="tree-badge-tooltip" aria-hidden="true">
+                    {project.data.labelHint}
+                  </span>
+                )}
+              </span>
+            )}
           </button>
+          {project.data.labelHint && (
+            <span id={labelHintId} class="sr-only">
+              {project.data.labelHint}
+            </span>
+          )}
           <ul id={groupId} class="tree-group" role="group" hidden={!expanded}>
             <li class="tree-leaf" role="treeitem" tabindex="-1">
               <span class="tree-leaf-text ">{project.data.headline}</span>
@@ -60,17 +99,30 @@ const renderedProjects = await Promise.all(
               </div>
             </li>
             {project.data.url && (
-              <li class="tree-leaf flex items-center gap-2" role="treeitem" tabindex="-1">
-Visit the website
+              <li class="tree-leaf" role="treeitem" tabindex="-1">
+                <div class="tree-site">
+                  <span>Visit the website</span>
                   <a
-                  class="tree-leaf-text tree-link"
-                  href={project.data.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {formatHost(project.data.url)}
-                  <span class="tree-link-arrow" aria-hidden="true">↗</span>
-                </a>
+                    class="tree-link"
+                    href={project.data.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {favicon ? (
+                      <img
+                        class="tree-site-icon"
+                        src={favicon}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      <span class="tree-site-icon tree-site-fallback" aria-hidden="true">{initial}</span>
+                    )}
+                    {host}
+                    <span class="tree-link-arrow" aria-hidden="true">↗</span>
+                  </a>
+                </div>
               </li>
             )}
           </ul>
@@ -140,6 +192,70 @@ Visit the website
     text-underline-offset: 3px;
   }
 
+  .tree-badge {
+    position: relative;
+    flex-shrink: 0;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid color-mix(in srgb, var(--color-brand) 45%, transparent);
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+    cursor: help;
+  }
+
+  .tree-badge-tooltip {
+    position: absolute;
+    z-index: 5;
+    bottom: calc(100% + 0.55rem);
+    left: -0.35rem;
+    width: max-content;
+    max-width: min(17rem, 70vw);
+    padding: 0.45rem 0.6rem;
+    border: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
+    border-radius: 6px;
+    background-color: var(--color-paper);
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--color-ink) 12%, transparent);
+    color: var(--color-ink-soft);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0;
+    text-transform: none;
+    text-align: left;
+    white-space: normal;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 0.12s ease-out,
+      visibility 0s linear 0.12s;
+  }
+
+  .tree-badge-tooltip::after {
+    content: '';
+    position: absolute;
+    top: calc(100% - 0.28rem);
+    left: 1.05rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    rotate: 45deg;
+    background-color: var(--color-paper);
+    border-right: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
+  }
+
+  .tree-badge:hover .tree-badge-tooltip,
+  .tree-toggle:focus-visible .tree-badge-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
   .tree-group {
     --tree-indent: 1.75rem;
     --tree-gap: 0.5rem;
@@ -204,7 +320,35 @@ Visit the website
     text-underline-offset: 2px;
   }
 
+  .tree-site {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .tree-site-icon {
+    flex-shrink: 0;
+    height: 1em;
+    width: auto;
+    border-radius: 3px;
+  }
+
+  .tree-site-fallback {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    font-size: 0.62rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--color-ink-soft);
+    background-color: color-mix(in srgb, currentColor 12%, transparent);
+  }
+
   .tree-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
     color: var(--color-brand);
     font-weight: 500;
     text-decoration: underline;
@@ -219,7 +363,6 @@ Visit the website
 
   .tree-link-arrow {
     display: inline-block;
-    margin-left: 0.3rem;
     font-size: 0.85em;
     transition: transform 0.15s ease-out;
   }

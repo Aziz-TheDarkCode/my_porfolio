@@ -2,6 +2,8 @@
 title: "Komkom"
 headline: "Komkom is a digital platform designed to modernize the traditional African collective savings system known as tontines. In charge of the landing page and internal back office tool development."
 order: 1
+label: "Deprecated"
+labelHint: "The team has since rebuilt the product on a new UI and stack; this work covers the original landing page and back office."
 draft: false
 url: "https://komkomapp.com/"
 ---

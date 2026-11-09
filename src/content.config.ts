@@ -26,6 +26,9 @@ const projects = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
   schema: z.object({
     title: z.string(),
+    label: z.string().optional(),
+    /** Explained on hover/focus of the label badge. */
+    labelHint: z.string().optional(),
     headline: z.string(),
     url: z.url().optional(),
     order: z.number().default(0),
