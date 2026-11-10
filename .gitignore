@@ -16,5 +16,8 @@ pnpm-debug.log*
 .env
 .env.production
 
+# agent symlink
+CLAUDE.md
+
 # macOS-specific files
 .DS_Store
