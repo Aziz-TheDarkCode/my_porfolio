@@ -16,7 +16,7 @@ const { Content } = await render(post);
 const site = Astro.site ?? new URL('https://abdouaziz.dev');
 const url = new URL(`/blog/${post.id}/`, site).href;
 const modifiedTime = post.data.updatedDate ?? post.data.pubDate;
-const ogImage = post.data.image ?? '/og.png';
+const ogImage = post.data.image ?? '/og.jpg';
 
 const jsonLd = {
   '@type': 'BlogPosting',
